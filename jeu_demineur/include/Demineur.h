@@ -1,10 +1,7 @@
 #ifndef DEMINEUR_H
 #define DEMINEUR_H
-#include<fstream>
-#include <iostream>
-using namespace std;
-#include <stdlib.h>
-class Demineur
+#include"Case.h"
+class Demineur : public Case
 {
 public:
     Demineur();

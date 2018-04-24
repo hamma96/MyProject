@@ -1,15 +1,17 @@
 #include "Demineur.h"
+#include"Case.h"
 #include<bits/stdc++.h>
+#include<unistd.h>
+using namespace std;
 #define RED     "\033[31m"
 #define RESET   "\033[0m"
 #define BOLDBLUE    "\033[1m\033[34m"
-#define BLUE    "\033[34m"
 #define CYAN    "\033[36m"
 #define MAGENTA "\033[35m"
 Demineur::Demineur(){}
 Demineur::~Demineur(){}
 void Demineur::menu()
-    {
+    {   cout<<endl<<endl;
         cout <<CYAN<< "        ****************************************************************\n"
              "        *                                                              *\n"
              "        *                                                              *\n"
@@ -31,7 +33,7 @@ void Demineur::menu()
     }
 void Demineur::AfficheJeu()
     {
-
+        cout<<endl;
         cout <<CYAN<< "        ****************************************************************" <<endl;
         cout << "        *                                                              *" <<endl;
         cout << "        *                                                              *" <<endl;
@@ -39,8 +41,9 @@ void Demineur::AfficheJeu()
         cout << "        *                                                              *" <<endl;
         cout << "        *         "<<RESET;
         for(int i=0; i<n; i++)
-            cout<<"   "<<i+1;
-          //printf("  %2d",i+1);
+        {   if (i<9)
+                cout<<"   "<<i+1;
+            else cout<<"  "<<i+1; }
         cout <<CYAN<< "            *"<< RESET<<endl;
 
         for (int i=0 ; i<m ; i++)
@@ -56,8 +59,12 @@ void Demineur::AfficheJeu()
 
             for (int j(0) ; j<n ; ++j)
             {
-               cout<<" "<<JEU[i][j]<<"  ";
-               //printf(" %2.c ",JEU[i][j]);
+                if(JEU[i][j]!=getcacher() && JEU[i][j]!=getVide() && JEU[i][j]!=getDrapeau())
+                    cout<<RED<<" "<<JEU[i][j]<<"  "<<RESET;
+                else if (JEU[i][j]==getDrapeau())
+                    cout<<BOLDBLUE<<" "<<JEU[i][j]<<"  "<<RESET;
+                else cout<<" "<<JEU[i][j]<<"  ";
+
             }
             cout <<CYAN<< "           *" <<endl;
         }
@@ -85,7 +92,7 @@ void Demineur::decouvrirX(int m, int n, int i, int j)
 
             JEU[i][j]=MINES[i][j];
             V[i][j]=true;
-            if(MINES[i][j]=='X')
+            if(MINES[i][j]==getVide())
             {
 
                 if(i>0)
@@ -140,6 +147,7 @@ int Demineur::saisir_nb_mines(int m, int n)
     }
 void Demineur::Regles()
     {
+        cout<<endl;
         cout <<CYAN "        ******************************************************************" <<endl;
         cout << "        *                             REGLES                             *" <<endl;
         cout << "        *                                                                *" <<endl;
@@ -167,36 +175,36 @@ int Demineur::NbMinesAutour(int i,int j)
         {
             if (j==0)
             {
-                if(MINES[i][j+1]=='M')
+                if(MINES[i][j+1]==getMine())
                     N++;
-                if(MINES[i+1][j]=='M')
+                if(MINES[i+1][j]==getMine())
                     N++;
-                if(MINES[i+1][j+1]=='M')
+                if(MINES[i+1][j+1]==getMine())
                     N++;
             }
             else
             {
                 if(j==n)
                 {
-                    if(MINES[i][j-1]=='M')
+                    if(MINES[i][j-1]==getMine())
                         N++;
-                    if(MINES[i+1][j-1]=='M')
+                    if(MINES[i+1][j-1]==getMine())
                         N++;
-                    if(MINES[i+1][j]='M')
+                    if(MINES[i+1][j]==getMine())
                         N++;
                 }
                 else
                 {
 
-                    if(MINES[i][j-1]=='M')
+                    if(MINES[i][j-1]==getMine())
                         N++;
-                    if(MINES[i][j+1]=='M')
+                    if(MINES[i][j+1]==getMine())
                         N++;
-                    if(MINES[i+1][j-1]=='M')
+                    if(MINES[i+1][j-1]==getMine())
                         N++;
-                    if(MINES[i+1][j]=='M')
+                    if(MINES[i+1][j]==getMine())
                         N++;
-                    if(MINES[i+1][j+1]=='M')
+                    if(MINES[i+1][j+1]==getMine())
                         N++;
                 }
             }
@@ -207,56 +215,56 @@ int Demineur::NbMinesAutour(int i,int j)
             {
                 if (j==0)
                 {
-                    if(MINES[i-1][j]=='M')
+                    if(MINES[i-1][j]==getMine())
                         N++;
-                    if(MINES[i-1][j+1]=='M')
+                    if(MINES[i-1][j+1]==getMine())
                         N++;
-                    if(MINES[i][j+1]=='M')
+                    if(MINES[i][j+1]==getMine())
                         N++;
                 }
                 else
                 {
                     if(j==n)
                     {
-                        if(MINES[i-1][j-1]=='M')
+                        if(MINES[i-1][j-1]==getMine())
                             N++;
-                        if(MINES[i-1][j]=='M')
+                        if(MINES[i-1][j]==getMine())
                             N++;
-                        if(MINES[i][j-1]=='M')
+                        if(MINES[i][j-1]==getMine())
                             N++;
                     }
                     else
                     {
-                        if(MINES[i-1][j-1]=='M')
+                        if(MINES[i-1][j-1]==getMine())
                             N++;
-                        if(MINES[i-1][j]=='M')
+                        if(MINES[i-1][j]==getMine())
                             N++;
-                        if(MINES[i-1][j+1]=='M')
+                        if(MINES[i-1][j+1]==getMine())
                             N++;
-                        if(MINES[i][j-1]=='M')
+                        if(MINES[i][j-1]==getMine())
                             N++;
-                        if(MINES[i][j+1]=='M')
+                        if(MINES[i][j+1]==getMine())
                             N++;
                     }
                 }
             }
             else
             {
-                if(MINES[i-1][j-1]=='M')
+                if(MINES[i-1][j-1]==getMine())
                     N++;
-                if(MINES[i-1][j]=='M')
+                if(MINES[i-1][j]==getMine())
                     N++;
-                if(MINES[i-1][j+1]=='M')
+                if(MINES[i-1][j+1]==getMine())
                     N++;
-                if(MINES[i][j-1]=='M')
+                if(MINES[i][j-1]==getMine())
                     N++;
-                if(MINES[i][j+1]=='M')
+                if(MINES[i][j+1]==getMine())
                     N++;
-                if(MINES[i+1][j-1]=='M')
+                if(MINES[i+1][j-1]==getMine())
                     N++;
-                if(MINES[i+1][j]=='M')
+                if(MINES[i+1][j]==getMine())
                     N++;
-                if(MINES[i+1][j+1]=='M')
+                if(MINES[i+1][j+1]==getMine())
                     N++;
             }
         }
@@ -269,7 +277,7 @@ int Demineur::nbvisible(int m, int n)
         {
             for(int j=0; j<n; j++)
             {
-                if(JEU[i][j]=='#' || JEU[i][j]=='D')
+                if(JEU[i][j]==getcacher() || JEU[i][j]==getDrapeau())
                 {
                     vis=vis+1;
                 }
@@ -280,26 +288,26 @@ int Demineur::nbvisible(int m, int n)
 void Demineur::INFO(int nb, int vis, int coup)
     {
 
-        cout<<"\t__________________________________________________"<<endl;
+        cout<<CYAN<<"\t__________________________________________________"<<RESET<<endl;
         cout<<"\tNombres de Mines en jeu : "<<nb<<endl<<endl;
-        cout<<"\tCases visibles : "<<vis<<endl<<endl;
+        cout<<"\tCases invisibles : "<<vis<<endl<<endl;
         cout<<"\tNombre de coup joue : "<<coup<<endl;
-        cout<<"\t__________________________________________________"<<endl<<endl<<endl;
+        cout<<CYAN<<"\t__________________________________________________"<<RESET<<endl<<endl<<endl;
     }
 
 void Demineur::nouveauJeu()
     {
         int choix;
-        cout<<MAGENTA<<"\n\tdonner le nombre de ligne: ";
+        cout<<MAGENTA<<"\n\tdonner le nombre de ligne: "<<RESET;
         cin>>m;
-        cout<<"\n\tdonner le nombre de colonne: "<<RESET;
+        cout<<MAGENTA<<"\n\tdonner le nombre de colonne: "<<RESET;
         cin>>n;
 
         for(i=0; i<m; i++)
         {
             for(j=0; j<n; j++)
             {
-                JEU[i][j]='#';//' 'implique case cachée
+                JEU[i][j]=getcacher();//' 'implique case cachée
                 MINES[i][j]='0';
             }
         }
@@ -317,7 +325,7 @@ void Demineur::nouveauJeu()
             j=rand()%n;//on choisit la colonne de manière aléatoire
             if(MINES[i][j]=='0')
             {
-                MINES[i][j]='M';
+                MINES[i][j]=getMine();
                 V[i][j]=true;
             }
 
@@ -335,7 +343,7 @@ void Demineur::nouveauJeu()
                     if(N>0)
                         MINES[i][j]= '0'+ N;
                     else
-                        MINES[i][j]='X';
+                        MINES[i][j]=getVide();
                 }
             }
         system("clear");
@@ -346,15 +354,15 @@ void Demineur::nouveauJeu()
         do
         {
 
-            cout<<"\n\nVeuillez entrer la case choisie (numero de ligne [espace] numero de colonne):\t";
+            cout<<"\n\n\tVeuillez entrer la case choisie (numero de ligne [espace] numero de colonne):\t";
             cin>>i>>j;
-            cout<<"Vous avez choisi la case ("<<i<<","<<j<<").\ Que voulez-vous faire ?\n";
+            cout<<"\n\tVous avez choisi la case ("<<i<<","<<j<<").\ Que voulez-vous faire ?"<<endl;
             i=i-1;
             j=j-1;
             cout<<endl;
 
-            cout<<"\t1. Decouvrir une case"<<endl;
-            cout<<"\t2. Placer un drapeau"<<endl;
+            cout<<MAGENTA<<"\t1. Decouvrir une case"<<endl;
+            cout<<"\t2. Placer un drapeau"<<RESET<<endl;
             do
             {
                 cout<<"\t\t\tVotre choix : ";
@@ -365,53 +373,59 @@ void Demineur::nouveauJeu()
             switch (choix)
             {
             case 1 :
-                if (MINES[i][j]=='M')
+                if (MINES[i][j]==getMine())
                 {
                     for(int k=0; k<m; k++)
                         for(int l=0; l<n; l++)
                             JEU[k][l]=MINES[k][l];
                     AfficheJeu();
-                    cout<<"Vous avez perdu !!!\n\n";
+                    cout<<RED<<"\n\n\tVous avez perdu !!!\n\n"<<RESET;
                     Quitter();
                 }
 
-                else if((MINES[i][j]!='X'))
+                else if((MINES[i][j]!=getcacher())&&(MINES[i][j]!=getVide())&&(V[i][j]==false))
                 {
                     coup+=100;
                     JEU[i][j]=MINES[i][j];
                     INFO(Nb,nbvisible(m,n),coup);
                     AfficheJeu();
                 }
-                else
+                else if (MINES[i][j]==getVide()&& JEU[i][j]!=getVide())
                 {
                     coup+=100;
                     decouvrirX(m,n,i,j);
-                    //decouvrirX2(v,MINES,JEU,m,n,i,j);
                     INFO(Nb,nbvisible(m,n),coup);
                     AfficheJeu();
                 }
+                else {INFO(Nb,nbvisible(m,n),coup);AfficheJeu(); cout<<"\n\tdeja decouverte"<<endl; usleep(1000000);}
 
                 break;
             case 2 :
-                if(JEU[i][j]=='#')
-                    if(Nb!=0)
+                if(JEU[i][j]==getcacher())
+                    {if(Nb!=0)
                     {
-                        JEU[i][j]='D';
+                        JEU[i][j]=getDrapeau();
                         V[i][j]=true;
                         coup+=100;
                         Nb--;
+                        INFO(Nb,nbvisible(m,n),coup);
+                        AfficheJeu();
                     }
-                    else cout<<"c'est impossible de placer un Drapeau"<<endl;
-                else if(JEU[i][j]=='D')
+                    else{ INFO(Nb,nbvisible(m,n),coup);AfficheJeu();cout<<"\n\tc'est impossible de placer un Drapeau"<<endl;
+                        usleep(1000000);
+                       }}
+                else if(JEU[i][j]==getDrapeau())
                 {
-                    JEU[i][j]='#';
+                    JEU[i][j]=getcacher();
                     V[i][j]=true;
                     coup+=100;
                     Nb++;
+                    INFO(Nb,nbvisible(m,n),coup);
+                    AfficheJeu();
                 }
-                else cout<<"cette case et visible"<<endl;
-                INFO(Nb,nbvisible(m,n),coup);
-                AfficheJeu();
+                else {INFO(Nb,nbvisible(m,n),coup);
+                AfficheJeu();cout<<"\n\tcette case et visible"<<endl;
+                usleep(1000000);}
                 break;
             }
 
@@ -419,13 +433,13 @@ void Demineur::nouveauJeu()
         while(nbvisible(m,n)!=Nb2 );
         AfficheJeu();
         cout<<"\n\n\t\tBravo vous avez gagné !"<<endl;
-        cout<<"dooner votre nom pour sauvegarder le score !"<<endl;
+        cout<<"\n\n\t\tdooner votre nom pour sauvegarder le score !"<<endl;
         string ch1;
         cin>>ch1;
         fstream f("score.txt", ios::in | ios::out | ios::app);
         if(f.is_open())
         {
-            f<<ch1<<" "<<coup;
+            f<<"Player: "<<ch1<<" "<<"Score: "<<coup;
             f.close();
         }
         Quitter();
@@ -454,19 +468,19 @@ void Demineur::BEGIN()
         case 3:
             system("clear");
             int h;
-            string g;
+            string g,k,l;
             fstream f("score.txt", ios::in | ios::out);
             cout<<endl<<endl;
-            cout<<"\t___________________"<<endl;
+            cout<<CYAN<<"\t_________________________"<<RESET<<endl;
             if(f.is_open())
             {
-                while(f>>g>>h)
+                while(f>>g>>k>>l>>h)
                 {
-                    cout<<"\t"<<g<<" "<<h<<endl;;
+                    cout<<"\t"<<g<<" "<<k<<" "<<l<<" "<<h<<endl;;
                 }
                 f.close();
             }
-             cout<<"\t___________________"<<endl;
+             cout<<CYAN<<"\t_________________________"<<RESET<<endl;
              cout<<endl<<endl;
             BEGIN();
             break;
@@ -475,7 +489,7 @@ void Demineur::BEGIN()
 void Demineur::Quitter()
     {
                     char qu;
-                    cout<<"Voulez-vous recommencer\? O/N ";
+                    cout<<"\n\n\t\tVoulez-vous recommencer\? O/N ";
                     do
                     {
                         cin>>qu;

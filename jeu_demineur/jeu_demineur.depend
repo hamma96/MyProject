@@ -1,16 +1,16 @@
 # depslib dependency file v1.0
-1524490331 source:/home/hamma/Desktop/2S/POO/project/jeu_demineur/main.cpp
+1524585298 source:/home/hamma/Desktop/2S/POO/project/jeu_demineur/main.cpp
 	<iostream>
 	"Demineur.h"
 
-1524490301 /home/hamma/Desktop/2S/POO/project/jeu_demineur/include/Demineur.h
-	<fstream>
-	<iostream>
-	<stdlib.h>
+1524584301 /home/hamma/Desktop/2S/POO/project/jeu_demineur/include/Demineur.h
+	"Case.h"
 
-1524519145 source:/home/hamma/Desktop/2S/POO/project/jeu_demineur/src/Demineur.cpp
+1524588606 source:/home/hamma/Desktop/2S/POO/project/jeu_demineur/src/Demineur.cpp
 	"Demineur.h"
+	"Case.h"
 	<bits/stdc++.h>
+	<unistd.h>
 
 1524257804 source:/home/hamma/Desktop/2S/POO/project/jeu_demineur/src/Lancer.cpp
 
@@ -18,4 +18,16 @@
 
 1524333679 /home/hamma/Desktop/2S/POO/project/jeu_demineur/include/Affiche.h
 	<iostream>
+
+1524587500 source:/home/hamma/Desktop/2S/POO/project/jeu_demineur/src/Case.cpp
+	"Case.h"
+	<bits/stdc++.h>
+
+1524587487 /home/hamma/Desktop/2S/POO/project/jeu_demineur/include/Case.h
+
+1524586942 source:/home/hamma/Desktop/2S/POO/project/jeu_demineur/Case.cpp
+	"Case.h"
+	<bits/stdc++.h>
+
+1524586969 /home/hamma/Desktop/2S/POO/project/jeu_demineur/Case.h
 
